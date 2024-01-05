@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+eval $(fnm env | sed 1d)
+export PATH=$(cygpath $FNM_MULTISHELL_PATH):$PATH
+
+if [[ -f .node-version || -f .nvmrc ]]; then
+    fnm use
+fi
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx --no-install commitlint --edit $1
